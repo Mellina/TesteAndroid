@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class InvestimentoFragment extends Fragment {
+public class InvestimentoFragment extends android.support.v4.app.Fragment {
 
     private static final String URLFundJson = "https://floating-mountain-50292.herokuapp.com/fund.json";
     private Context context;

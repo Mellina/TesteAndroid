@@ -6,6 +6,7 @@
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:background="@android:color/white"
+    android:id="@+id/idFragmentInvestimento"
     tools:context="com.UI.InvestimentoFragment">
 
 

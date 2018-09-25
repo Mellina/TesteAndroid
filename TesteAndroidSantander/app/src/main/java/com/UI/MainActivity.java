@@ -2,13 +2,14 @@ package com.UI;
 
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.cerqueira.mellina.testeandroidsantander.R;
 
-public class MainActivity extends Activity implements BotoesInferioresFragment.OnSetTitleListener, BotoesInferioresFragment.OnOpenFragmentListener, FormularioFragment.OnButtonSendListener {
+public class MainActivity extends FragmentActivity implements BotoesInferioresFragment.OnSetTitleListener, BotoesInferioresFragment.OnOpenFragmentListener, FormularioFragment.OnButtonSendListener {
 
     private TituloFragment tituloFragment;
 
@@ -19,8 +20,9 @@ public class MainActivity extends Activity implements BotoesInferioresFragment.O
 
         tituloFragment = (TituloFragment) getFragmentManager().findFragmentById(R.id.layout_titulo);
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        FragmentManager fm = this.getSupportFragmentManager();
+
+         FragmentTransaction ft = fm.beginTransaction();
 
         FormularioFragment lp = new FormularioFragment();
         ft.replace(R.id.layout_principal, lp, "layout_contato");
@@ -36,7 +38,7 @@ public class MainActivity extends Activity implements BotoesInferioresFragment.O
     @Override
     public void onOpenFragment(String text) {
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
         if (text.equals("Investimento")) {
@@ -55,7 +57,7 @@ public class MainActivity extends Activity implements BotoesInferioresFragment.O
 
     @Override
     public void onSend() {
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         MensagemEnviadaFragment menf = new MensagemEnviadaFragment();
         ft.replace(R.id.layout_principal, menf, "layout_mensagem_enviada");

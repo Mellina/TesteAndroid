@@ -12,8 +12,7 @@ import com.cerqueira.mellina.testeandroidsantander.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MensagemEnviadaFragment extends Fragment {
-
+public class MensagemEnviadaFragment extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

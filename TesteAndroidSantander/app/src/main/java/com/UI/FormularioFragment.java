@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.AsyncTask.ReadContatoJSONTask;
+import com.Type;
+import com.TypeField;
 import com.cerqueira.mellina.testeandroidsantander.R;
 import com.entities.Componente;
 
@@ -32,20 +34,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.Type.*;
 
-public class FormularioFragment extends Fragment {
+
+public class FormularioFragment extends android.support.v4.app.Fragment {
 
     private static final String URLCellsJSON = "https://floating-mountain-50292.herokuapp.com/cells.json";
-
-    private final static int FIELD = 1;
-    private final static int TEXT = 2;
-    private final static int IMAGE = 3;
-    private final static int CHECKBOX = 4;
-    private final static int BUTTON = 5;
-
-    private final static String INPUT_TYPE_TEXT = "1";
-    private final static String INPUT_TYPE_TEL_NUMBER = "telnumber";
-    private final static String INPUT_TYPE_EMAIL = "3";
 
     public static final boolean CRIA_COMPONENTE = true;
 
@@ -166,7 +160,7 @@ public class FormularioFragment extends Fragment {
 
     private View criaERetornaConstraintLayout() {
         constraintLayout = new ConstraintLayout(context);
-        constraintLayout.setId(R.id.constraintLayout);
+        constraintLayout.setId(R.id.idFragmentFormulario);
         constraintLayout.setBackgroundColor(context.getResources().getColor(android.R.color.white));
 
         constraintLayout.setPadding(context.getResources().getInteger(R.integer.padding_lateral), 0, context.getResources().getInteger(R.integer.padding_lateral), 0);
@@ -237,7 +231,9 @@ public class FormularioFragment extends Fragment {
 
     private void criaComponentesDeAcordoComOTipo(Componente c) {
 
-        switch (c.getType()) {
+        Type tipo = Type.returnaEnumPorValor(c.getType());
+
+        switch (tipo) {
             case FIELD:
                 criaComponenteField(c);
                 break;
@@ -249,6 +245,8 @@ public class FormularioFragment extends Fragment {
                 break;
             case BUTTON:
                 criaComponenteButton(c);
+                break;
+            default:
                 break;
         }
     }
@@ -271,7 +269,6 @@ public class FormularioFragment extends Fragment {
         checkBox.setText(c.getMessage());
         checkBox.setId(Integer.parseInt(String.valueOf(c.getId())));
         checkBox.setTextAppearance(context, R.style.TextViewDarkGrayBold);
-
 
 
         checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -306,7 +303,7 @@ public class FormularioFragment extends Fragment {
             editText.setInputType(retornaInputType(c));
         }
 
-        if (c.getTypefield().equals(INPUT_TYPE_TEL_NUMBER)) {
+        if (c.getTypefield().equals(TypeField.TELNUMBER)) {
             //adiciona listener para acessar texto durante a digitacao do usuario
             editText.addTextChangedListener(onChangedListenerText);
             //adiciona restricao de no maximo 14 digitos
@@ -340,9 +337,10 @@ public class FormularioFragment extends Fragment {
 
         for (int i = 0; i < componentesUI.size(); i++) {
 
-            switch (componentes.get(i).getTypefield()) {
+           TypeField typeField =  TypeField.returnaEnumPorValor(componentes.get(i).getTypefield());
+            switch (typeField) {
 
-                case INPUT_TYPE_TEXT: {
+                case TEXT: {
                     ed = (EditText) componentesUI.get(i);
                     textoDigitado = String.valueOf(ed.getText());
 
@@ -357,7 +355,7 @@ public class FormularioFragment extends Fragment {
                     }
                     break;
                 }
-                case INPUT_TYPE_TEL_NUMBER: {
+                case TELNUMBER: {
                     ed = (EditText) componentesUI.get(i);
                     textoDigitado = String.valueOf(ed.getText());
                     //verifica se o texto esta no formato de telefone
@@ -371,7 +369,7 @@ public class FormularioFragment extends Fragment {
                     }
                     break;
                 }
-                case INPUT_TYPE_EMAIL: {
+                case EMAIL: {
                     ed = (EditText) componentesUI.get(i);
                     //verifica se o campo email esta visivel
                     if (ed.getVisibility() == View.VISIBLE) {
@@ -395,26 +393,26 @@ public class FormularioFragment extends Fragment {
     }
 
     //Expressão regular para (##) ####-#### || (##) #####-####
-    private boolean ENumeroDeTelefone(String numeroTelefone) {
+    boolean ENumeroDeTelefone(String numeroTelefone) {
         return numeroTelefone.matches("\\(\\d\\d\\)\\d\\d\\d\\d\\-\\d\\d\\d\\d") ||
                 numeroTelefone.matches("\\(\\d\\d\\)\\d\\d\\d\\d\\d\\-\\d\\d\\d\\d");
     }
 
     //Expressão regular para xxx@xxx.xxx
-    private boolean EEmail(String email) {
+    boolean EEmail(String email) {
         return email.matches("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
     }
 
     private int retornaInputType(Componente c) {
 
         String inputType = c.getTypefield();
-        if (inputType.equals(INPUT_TYPE_TEXT))
+        if (inputType.equals(TypeField.TEXT))
             return InputType.TYPE_CLASS_TEXT;
 
-        if (inputType.equals(INPUT_TYPE_TEL_NUMBER))
+        if (inputType.equals(TypeField.TELNUMBER))
             return InputType.TYPE_CLASS_PHONE;
 
-        if (inputType.equals(INPUT_TYPE_EMAIL))
+        if (inputType.equals(TypeField.EMAIL))
             return InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
 
         return InputType.TYPE_CLASS_TEXT;

@@ -1,6 +1,7 @@
 package com.AsyncTask;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.UI.FormularioFragment;
 import com.entities.Componente;
@@ -42,6 +43,7 @@ public class ReadContatoJSONTask extends AsyncTask<String, Void, List<Componente
             try {
                 //Le as informações vindas do JSON
                 JSONObject cells = new JSONObject(response.extractDataAsString());
+                Log.v("JSON", cells.toString());
                 JSONArray arraysCells = cells.getJSONArray("cells");
 
                 //preenche e cria os objetos de acordo com informacoes da JSON
