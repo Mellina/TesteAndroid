@@ -47,7 +47,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(NOME)).perform(typeText("Mellina"), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText("2134567890"), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click()); //clica no botao
-        onView(withId(R.id.mensagemEnviadaFragment)).check(matches(isDisplayed()));
+        onView(withId(BOTAO_ENVIAR)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(4)).perform(typeText("mellina@gmail.com"), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText("2134567890"), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click()); //clica no botao
-        onView(withId(R.id.mensagemEnviadaFragment)).check(matches(isDisplayed()));
+        onView(withId(BOTAO_ENVIAR)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(4)).perform(typeText("mellina@gmail.com"), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText("2134567890"), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click());
-        onView(withId(R.id.mensagemEnviadaFragment)).check((doesNotExist()));
+        onView(withId(BOTAO_ENVIAR)).check((doesNotExist()));
     }
 
 
@@ -81,7 +81,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(4)).perform(typeText(""), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText("2134567890"), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click());
-        onView(withId(R.id.mensagemEnviadaFragment)).check((doesNotExist()));
+        onView(withId(BOTAO_ENVIAR)).check((doesNotExist()));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(4)).perform(typeText("mellina@gmail.com"), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText(""), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click());
-        onView(withId(R.id.mensagemEnviadaFragment)).check((doesNotExist()));
+        onView(withId(BOTAO_ENVIAR)).check((doesNotExist()));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(4)).perform(typeText("mellinagmail.com"), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText(""), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click());
-        onView(withId(R.id.mensagemEnviadaFragment)).check((doesNotExist()));
+        onView(withId(BOTAO_ENVIAR)).check((doesNotExist()));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(NOME)).perform(typeText("Mellina"), closeSoftKeyboard());
         onView(withId(TELEFONE)).perform(typeText("33>%4"), closeSoftKeyboard());
         onView(withText("Enviar")).perform(click());
-        onView(withId(R.id.mensagemEnviadaFragment)).check((doesNotExist()));
+        onView(withId(BOTAO_ENVIAR)).check((doesNotExist()));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class FormularioFragmentAndroidTest {
         onView(withId(CHECKBOX_EMAIL)).perform(click());
         onView(withId(EMAIL)).check(matches(isDisplayed()));
         onView(withText("Enviar")).perform(click());
-        onView(withId(R.id.mensagemEnviadaFragment)).check((doesNotExist()));
+        onView(withId(BOTAO_ENVIAR)).check((doesNotExist()));
     }
 
     @Test
